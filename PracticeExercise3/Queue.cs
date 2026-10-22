@@ -9,24 +9,24 @@ public class Queue<T> : IQueue<T>
     /// Does not remove the item.
     /// </summary>
     /// <exception cref="EmptyQueueException">Thrown if the queue is empty.</exception>
-    public T First => throw new NotImplementedException();
+    public T First => IsEmpty? throw new EmptyQueueException() : linkedList.First!.Value;
 
     /// <summary>
     /// The item at the back of the queue (the most recently enqueued item).
     /// Does not remove the item.
     /// </summary>
     /// <exception cref="EmptyQueueException">Thrown if the queue is empty.</exception>
-    public T Last => throw new NotImplementedException();
+    public T Last => IsEmpty? throw new EmptyQueueException() : linkedList.Last!.Value;
 
     /// <summary>
     /// The number of items currently in the queue.
     /// </summary>
-    public int Count => throw new NotImplementedException();
+    public int Count => linkedList.Count;
 
     /// <summary>
     /// True if the queue contains no items; otherwise false.
     /// </summary>
-    public bool IsEmpty => throw new NotImplementedException();
+    public bool IsEmpty => Count == 0;
 
     /// <summary>
     /// Removes and returns the item at the front of the queue.
@@ -35,7 +35,16 @@ public class Queue<T> : IQueue<T>
     /// <exception cref="EmptyQueueException">Thrown if the queue is empty.</exception>
     public T Dequeue()
     {
-        throw new NotImplementedException();
+        if (IsEmpty)
+        {
+            throw new EmptyQueueException();
+        }
+
+        T frontOfQueue = linkedList.First!.Value;
+
+        linkedList.RemoveFirst();
+
+        return frontOfQueue;
     }
 
     /// <summary>
@@ -44,7 +53,7 @@ public class Queue<T> : IQueue<T>
     /// <param name="item">The item to add.</param>
     public void Enqueue(T item)
     {
-        throw new NotImplementedException();
+        linkedList.AddLast(item);
     }
 
     /// <summary>
@@ -52,7 +61,7 @@ public class Queue<T> : IQueue<T>
     /// </summary>
     public void Clear()
     {
-        throw new NotImplementedException();
+        linkedList.Clear();
     }
 
     /// <summary>

@@ -7,24 +7,24 @@ public class Deque<T> : IDeque<T>
     /// <summary>
     /// True if the deque contains no items; otherwise false.
     /// </summary>
-    public bool IsEmpty => throw new NotImplementedException();
+    public bool IsEmpty => linkedList.Count == 0;
 
     /// <summary>
     /// The number of items currently in the deque.
     /// </summary>
-    public int Count => throw new NotImplementedException();
+    public int Count => linkedList.Count;
 
     /// <summary>
     /// The item at the front of the deque. Does not remove the item.
     /// </summary>
     /// <exception cref="EmptyQueueException">Thrown if the deque is empty.</exception>
-    public T Front => throw new NotImplementedException();
+    public T Front => IsEmpty? throw new EmptyQueueException() : linkedList.First!.Value;
 
     /// <summary>
     /// The item at the back of the deque. Does not remove the item.
     /// </summary>
     /// <exception cref="EmptyQueueException">Thrown if the deque is empty.</exception>
-    public T Back => throw new NotImplementedException();
+    public T Back => IsEmpty? throw new EmptyQueueException() : linkedList.Last!.Value;
 
     /// <summary>
     /// Adds an item to the back of the deque.
@@ -32,7 +32,7 @@ public class Deque<T> : IDeque<T>
     /// <param name="item">The item to add.</param>
     public void AddBack(T item)
     {
-        throw new NotImplementedException();
+        linkedList.AddLast(item);
     }
 
     /// <summary>
@@ -41,7 +41,7 @@ public class Deque<T> : IDeque<T>
     /// <param name="item">The item to add.</param>
     public void AddFront(T item)
     {
-        throw new NotImplementedException();
+        linkedList.AddFirst(item);
     }
 
     /// <summary>
@@ -51,7 +51,14 @@ public class Deque<T> : IDeque<T>
     /// <exception cref="EmptyQueueException">Thrown if the deque is empty.</exception>
     public T RemoveBack()
     {
-        throw new NotImplementedException();
+        if (IsEmpty)
+        {
+            throw new EmptyQueueException();
+        }
+
+        T item = linkedList.Last!.Value;
+        linkedList.RemoveLast();
+        return item;
     }
 
     /// <summary>
@@ -61,7 +68,14 @@ public class Deque<T> : IDeque<T>
     /// <exception cref="EmptyQueueException">Thrown if the deque is empty.</exception>
     public T RemoveFront()
     {
-        throw new NotImplementedException();
+        if (IsEmpty)
+        {
+            throw new EmptyQueueException();
+        }
+
+        T item = linkedList.First!.Value;
+        linkedList.RemoveFirst();
+        return item;
     }
 
     /// <summary>
@@ -69,7 +83,7 @@ public class Deque<T> : IDeque<T>
     /// </summary>
     public void Clear()
     {
-        throw new NotImplementedException();
+        linkedList.Clear();
     }
 
     /// <summary>
